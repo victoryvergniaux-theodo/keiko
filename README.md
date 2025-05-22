@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- `NodeJS` v14+ installed
+- `NodeJS` v22+ installed
 - `yarn` installed globally (`npm install -g yarn`)
 
 ## Installation
