@@ -33,10 +33,10 @@ Check that the backend is running by visiting: [http://localhost:8000](http://lo
 
 - In the second terminal, start the frontend by running:
 ```bash
-cd frontend && yarn start
+cd frontend && yarn dev
 ```
 
-Check that the frontend is running by visiting: [http://localhost:3000](http://localhost:3000).
+Check that the frontend is running by visiting: [http://localhost:5173](http://localhost:5173).
 
 ## Development
 
