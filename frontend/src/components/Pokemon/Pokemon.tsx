@@ -13,7 +13,9 @@ export const PokemonComponent = (pokemon: Pokemon) => {
   return (
     <div className={styles.card}>
       <p>{pokemon.name}</p>
-      <div className={styles.image}><img className={styles.pokemonImage} src={url}></img></div>
+      <div className={styles.image}>
+        <img className={styles.pokemonImage} src={url}></img>
+      </div>
       <p>Number : {pokemon.id}</p>
       <p>Weight : {pokemon.weight}</p>
       <p>Height : {pokemon.height}</p>
