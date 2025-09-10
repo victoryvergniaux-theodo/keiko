@@ -8,14 +8,14 @@ img.pokemonImage {
 }
 
 div.card{
-    border-style: double;
-    border-width: 10px;
-    width: 400px;
-    height: 270px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 1%;
+  border-style: double;
+  border-width: 10px;
+  width: 400px;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px; 
 }
 
 div.image{

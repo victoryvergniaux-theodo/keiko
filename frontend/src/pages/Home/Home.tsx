@@ -17,10 +17,19 @@ export const Home = () => {
 
   const [errorMessage, setErrorMessage] = React.useState("")
 
+  const [pageNumber, setPageNumber] = React.useState(1)
+
+  const pageBefore = async () => await setPageNumber(pageNumber - 1)
+
+  const pageAfter = async () => await setPageNumber(pageNumber + 1)
+
   const fetchPokemons = async () => {
-    const pokemonData = await fetch("http://localhost:8000/pokemons", { headers: { accept: "application/json" } })
+    const pokemonData = await fetch("http://localhost:8000/pokemons?page=" + pageNumber, {
+      headers: { accept: "application/json" },
+    })
     const pokemonJsonData = await pokemonData.json()
-    await new Promise(resolve => setTimeout(resolve, 2000)) // on forcer le super loader
+    console.log(pokemonJsonData)
+    await new Promise(resolve => setTimeout(resolve, 500)) // on forcer le super loader
     //throw new Error("Tout est KO") // on force l'erreur
     setPokemonList(pokemonJsonData)
     setIsLoading(false)
@@ -28,12 +37,13 @@ export const Home = () => {
 
   useEffect(() => {
     setErrorMessage("")
+    setIsLoading(true)
     fetchPokemons().catch(error => {
       setIsLoading(false)
       setErrorMessage(error.message)
       console.error(error.message)
     })
-  }, [])
+  }, [pageNumber])
 
   return (
     <div className={styles.intro}>
@@ -41,18 +51,36 @@ export const Home = () => {
       {isLoading ? (
         <Loader />
       ) : errorMessage === "" ? (
-        <div className={styles.pokedex}>
-          {pokemonList.map(pokemon => {
-            return (
-              <PokemonComponent
-                name={pokemon.name}
-                id={pokemon.id}
-                height={pokemon.height}
-                weight={pokemon.weight}
-                key={pokemon.id}
-              />
-            )
-          })}
+        <div>
+          <div className={styles.selectors}>
+            {pageNumber > 0 ? (
+              <div onClick={pageBefore} className={styles.selector}>
+                &lt;
+              </div>
+            ) : (
+              <div></div>
+            )}
+            {pageNumber < 10 ? (
+              <div onClick={pageAfter} className={styles.selector}>
+                &gt;
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
+          <div className={styles.pokedex}>
+            {pokemonList.map(pokemon => {
+              return (
+                <PokemonComponent
+                  name={pokemon.name}
+                  id={pokemon.id}
+                  height={pokemon.height}
+                  weight={pokemon.weight}
+                  key={pokemon.id}
+                />
+              )
+            })}
+          </div>
         </div>
       ) : (
         <div>{errorMessage}</div>

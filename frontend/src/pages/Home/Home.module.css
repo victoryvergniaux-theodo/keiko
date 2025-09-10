@@ -10,3 +10,13 @@
   display: flex;
   flex-wrap: wrap
 }
+
+.selectors {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.selector:hover {
+  cursor: pointer
+}
