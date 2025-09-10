@@ -11,30 +11,36 @@ interface PokemonInfo {
 }
 
 export const Home = () => {
-  const [pokemonFilterValue, setFilterValue] = React.useState("")
-
   const [pokemonList, setPokemonList] = React.useState<PokemonInfo[]>([])
 
   const [isLoading, setIsLoading] = React.useState(true)
+
+  const [errorMessage, setErrorMessage] = React.useState("")
 
   const fetchPokemons = async () => {
     const pokemonData = await fetch("http://localhost:8000/pokemons", { headers: { accept: "application/json" } })
     const pokemonJsonData = await pokemonData.json()
     await new Promise(resolve => setTimeout(resolve, 2000)) // on forcer le super loader
+    //throw new Error("Tout est KO") // on force l'erreur
     setPokemonList(pokemonJsonData)
     setIsLoading(false)
   }
 
   useEffect(() => {
-    fetchPokemons()
-  }, [pokemonFilterValue])
+    setErrorMessage("")
+    fetchPokemons().catch(error => {
+      setIsLoading(false)
+      setErrorMessage(error.message)
+      console.error(error.message)
+    })
+  }, [])
 
   return (
     <div className={styles.intro}>
       <h1>Pokedex !</h1>
       {isLoading ? (
         <Loader />
-      ) : (
+      ) : errorMessage === "" ? (
         <div className={styles.pokedex}>
           {pokemonList.map(pokemon => {
             return (
@@ -48,6 +54,8 @@ export const Home = () => {
             )
           })}
         </div>
+      ) : (
+        <div>{errorMessage}</div>
       )}
     </div>
   )
