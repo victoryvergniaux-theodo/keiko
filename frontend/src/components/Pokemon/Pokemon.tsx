@@ -1,16 +1,22 @@
-interface Props {
+import "./Pokemon.module.css"
+import styles from "./Pokemon.module.css"
+export interface Pokemon {
   name: string
-  number: number
+  id: number
+  height: number
+  weight: number
 }
 
-export const Pokemon = (props: Props) => {
-  const url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + props.number + ".png"
-  console.log(props.name)
+export const PokemonComponent = (pokemon: Pokemon) => {
+  const url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png"
+  console.log(pokemon.name)
   return (
-    <div>
-      <img src={url}></img>
-      <p>Name : {props.name}</p>
-      <p>Number : {props.number}</p>
+    <div className={styles.card}>
+      <p>{pokemon.name}</p>
+      <div className={styles.image}><img className={styles.pokemonImage} src={url}></img></div>
+      <p>Number : {pokemon.id}</p>
+      <p>Weight : {pokemon.weight}</p>
+      <p>Height : {pokemon.height}</p>
     </div>
   )
 }

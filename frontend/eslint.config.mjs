@@ -33,6 +33,12 @@ export default defineConfig([
     ],
     languageOptions: {
       parser: tsParser,
+      globals: {
+        ...globals.brower,
+        ...globals.es2021,
+        ...globals.node,
+        ...globals.jest
+      }
     },
     settings: {
       react: {

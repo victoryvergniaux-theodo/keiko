@@ -1,4 +1,15 @@
 @font-face {
   font-family: "PokemonGB";
   src: local("PokemonGB"), url("./fonts/PokemonGb-RAeo.ttf") format("truetype");
+  font-size: 14
+}
+
+body {
+  font-family: "PokemonGB";
+  font-size: small;
+}
+
+h1 {
+  font-size: xx-large;
+  margin: 2%;
 }
