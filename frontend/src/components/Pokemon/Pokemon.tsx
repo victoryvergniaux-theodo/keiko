@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
 import "./Pokemon.module.css"
 import styles from "./Pokemon.module.css"
+import React from "react"
+import { useAnimate } from "../../components/Animate"
+import animationStyles from "../../components/Animate/Animate.module.css"
 export interface Pokemon {
   name: string
   id: number
@@ -9,13 +12,15 @@ export interface Pokemon {
 }
 
 export const PokemonComponent = (pokemon: Pokemon) => {
+  const ref = React.useRef<HTMLDivElement>(null)
   const imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemon.id + ".png"
   const pokemonUrl = "/pokemon/" + pokemon.id
+  useAnimate(ref, animationStyles.tadaAnimation)
   console.log(pokemon.name)
   return (
     // pas réussi à le mettre dans du css ça s'override à chaque fois, à regarder ensemble
     <Link style={{ color: "inherit", textDecoration: "inherit" }} to={pokemonUrl}>
-      <div className={styles.card}>
+      <div ref={ref} className={styles.card}>
         <p>{pokemon.name}</p>
         <div className={styles.image}>
           <img className={styles.pokemonImage} src={imageUrl}></img>
